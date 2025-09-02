@@ -1,0 +1,30 @@
+services:
+  bot:
+    build:
+      context: bot-managed-rag
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_BOT_TOKEN=<YOUR_TELEGRAM_BOT_TOKEN>
+      - MCP_SERVER_URL=http://mcp-managed-rag:8003/sse
+      - MCP_RAG_TOOL_NAME=request_to_rag
+      - MCP_TRANSPORT=sse
+      - GIGACHAT_CREDENTIALS=<YOUR_GIGACHAT_CREDENTIALS>
+      - GIGACHAT_SCOPE=<YOUR_GIGACHAT_SCOPE>
+      - GIGACHAT_MODEL=GigaChat-2-Pro
+      - GIGACHAT_TEMPERATURE=0.6
+      - GIGACHAT_VERIFY_SSL=false
+      - STREAM_EDIT_INTERVAL_SEC=0.4
+      - STREAM_MIN_CHARS_DELTA=48
+  mcp-managed-rag:
+    build: 
+      context: mcp-managed-rag
+      dockerfile: Dockerfile
+    container_name: mcp-managed-rag-server
+    environment:
+      - EVOLUTION_PROJECT_ID=<YOUR_EVOLUTION_PROJECT_ID>
+      - KNOWLEDGE_BASE_ID=<YOUR_KNOWLEDGE_BASE_ID>
+      - KNOWLEDGE_BASE_VERSION_ID=<YOUR_KNOWLEDGE_BASE_VERSION_ID>
+      - RETRIEVE_LIMIT=5
+
+    restart: unless-stopped

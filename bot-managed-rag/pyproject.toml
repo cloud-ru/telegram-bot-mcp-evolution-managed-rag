@@ -1,0 +1,33 @@
+[project]
+name = "telegram-bot-managed-rag"
+version = "0.1.0"
+description = "Agentic RAG Telegram bot using LangGraph, GigaChat LLM, and external MCP server"
+requires-python = ">=3.13"
+dependencies = [
+    "aiogram>=3.13.0",
+    "langgraph>=0.2.46",
+    "langchain-gigachat>=0.2.4",
+    "langchain-core>=0.3.20",
+    "mcp>=1.0.0",
+    "aiohttp>=3.10.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.9.0",
+    "asyncio-mqtt>=0.16.0",
+    "ipykernel>=6.30.1",
+    "loguru>=0.7.2",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "black>=24.0.0",
+    "ruff>=0.6.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
